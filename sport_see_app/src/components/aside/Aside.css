@@ -1,0 +1,12 @@
+.container-aside {
+    width: 117px;
+    flex-direction: column;
+    background-color: black;
+}
+
+.content {
+    height: 100%;
+    
+    display: flex;
+    flex-direction: row;
+}

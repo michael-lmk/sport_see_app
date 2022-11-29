@@ -1,0 +1,39 @@
+header {
+    background-color: black;
+}
+
+.container-header {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    height: 91px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-size: 24px;
+    margin: 0;
+}
+
+.header-logo {
+    width: 178px;
+    object-fit: contain;
+}
+
+ul {
+    color: black;
+    list-style: none;
+    flex: 1;
+}
+li {
+    display: flex;
+    align-items: center;
+    
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
