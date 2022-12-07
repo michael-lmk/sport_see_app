@@ -1,139 +1,14 @@
 import Aside from "../../components/aside/Aside";
 import Header from "../../components/header/Header";
 import "./ProfileScreen";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, RadarChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
+import { BarChart, Pie, PieChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, RadarChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, Customized } from 'recharts';
+import "./ProfileScreen.css";
+import data from "../../data/datagraph1.json"
+import dataLine from "../../data/datagraph2.json"
+import dataRadar from "../../data/datagraph3.json"
+import dataCircle from "../../data/datagraph4.json"
 
 
-const data = [
-    {
-        name: '1',
-        uv: 68,
-        pv: 70,
-    },
-    {
-        name: '2',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '3',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '4',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '5',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '6',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '7',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '8',
-        uv: 69,
-        pv: 70,
-    },
-    {
-        name: '9',
-        uv: 69,
-        pv: 71,
-    },
-    {
-        name: '10',
-        uv: 70,
-        pv: 72,
-
-    },
-];
-
-
-const dataLine = [
-    {
-        pv: 10,
-    },
-    {
-        day: 'L',
-        pv: 25,
-    },
-    {
-        day: 'M',
-        pv: 15,
-    },
-    {
-        day: 'M',
-        pv: 20,
-    },
-    {
-        day: 'J',
-        pv: 10,
-    },
-    {
-        day: 'V',
-        pv: 35,
-    },
-    {
-        day: 'S',
-        pv: 16,
-    },
-    {
-        day: 'D',
-        pv: 23,
-    },
-    {
-        pv: 45,
-    },
-];
-
-const dataRadar = [
-    {
-        subject: 'Math',
-        A: 120,
-        B: 110,
-        fullMark: 150,
-    },
-    {
-        subject: 'Chinese',
-        A: 98,
-        B: 130,
-        fullMark: 150,
-    },
-    {
-        subject: 'English',
-        A: 86,
-        B: 130,
-        fullMark: 150,
-    },
-    {
-        subject: 'Geography',
-        A: 99,
-        B: 100,
-        fullMark: 150,
-    },
-    {
-        subject: 'Physics',
-        A: 85,
-        B: 90,
-        fullMark: 150,
-    },
-    {
-        subject: 'History',
-        A: 65,
-        B: 85,
-        fullMark: 150,
-    },
-];
 
 const ProfileScreen = ({ name }) => {
 
@@ -150,43 +25,55 @@ const ProfileScreen = ({ name }) => {
             <div className="content">
                 <Aside />
                 <div className="dashboard">
+                    <div className="content-text">
+                        <h1 className="name">Bonjours <span className="color-red">Thomas</span></h1>
+                        <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
+                    </div>
                     <div className="content-graph">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart title="Activité quotidienne" width={700} height={300} data={data}>
-                                <CartesianGrid strokeDasharray="2 2" />
 
-                                <Bar radius={[20, 20, 0, 0]} barSize={7} name="Poids (kg)" dataKey="pv" stackId="a" fill="#282D30" />
-                                <Bar radius={[20, 20, 0, 0]} barSize={7} name="Calories brûlées (kCal)" dataKey="uv" fill="#E60000" />
+                        <BarChart title={"Activité quotidienne"} width={700} height={300} data={data}>
 
-                                <XAxis dataKey="name" />
-                                <YAxis type="number" interval="preserveStartEnd" domain={[dataMin => (getMinValueUv(data)), dataMax => (dataMax + 1)]} />
+                            <CartesianGrid horizontal={true} vertical={false} stroke="#DFE2E6" />
 
-                                <Tooltip />
-                                <Legend iconSize={"8px"} iconType="circle" verticalAlign="top" align="right" height={36} />
+                            <Bar radius={[20, 20, 0, 0]} barSize={7} name="Poids (kg)" dataKey="pv" stackId="a" fill="#282D30" />
+                            <Bar radius={[20, 20, 0, 0]} barSize={7} name="Calories brûlées (kCal)" dataKey="uv" fill="#E60000" />
 
-                            </BarChart>
-                        </ResponsiveContainer>
+                            <XAxis tickMargin={10} tickLine={false} dataKey="name" />
+                            <YAxis axisLine={false} tickLine={false} type="number" interval="preserveStartEnd" domain={[dataMin => (Math.round(getMinValueUv(data))), dataMax => (Math.round(dataMax + 1))]} orientation="right" />
+
+                            <Tooltip />
+                            <Legend iconSize={"8px"} iconType="circle" verticalAlign="top" align="right" height={36} />
+                            <text className="title" x="60" y="11" color="#20253A" dominantBaseline="hanging" fontWeight="500">Activité quotidienne</text>
+                        </BarChart>
+
                     </div>
                     <div className="group-bottom-graph">
-                        <div>
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart title="Durée moyenne des sessions" width={250} height={250} data={dataLine}>
-                                    <Line type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={2} />
-                                    <XAxis dataKey="day" />
-                                </LineChart>
-                            </ResponsiveContainer>
+
+                        <div className="graph-bottom line-chart" style={{ backgroundColor: "red" }}>
+                            <LineChart title="Durée moyenne des sessions" width={300} height={250} data={dataLine}>
+                                <Line type="monotone" dataKey="pv" stroke="#8884d8" strokeWidth={1} />
+                                <XAxis tick={{ stroke: 'white' }} axisLine={false} tickLine={false} label={{ fill: 'white' }} dataKey="day" />
+                                <text className="title-graph2" x="30" y="25">
+                                    <tspan x="30" dy="1.2em">Durée moyenne des</tspan>
+                                    <tspan x="30" dy="1.2em">sessions</tspan>
+                                </text>
+                            </LineChart>
+                        </div>
+
+
+                        <div className="graph-bottom radar-chart" >
+                            <RadarChart width={300} height={250} cx="50%" cy="50%" outerRadius="80%" data={dataRadar}>
+                                <PolarGrid />
+                                <PolarAngleAxis dataKey="subject" color="white" />
+                                <Radar name="Mike" dataKey="A" fill=" rgba(255, 1, 1, 0.7)" fillOpacity={0.6} />
+                            </RadarChart>
                         </div>
                         <div>
-                            <ResponsiveContainer width="100%" height="100%">
-                                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataRadar}>
-                                    <PolarGrid />
-                                    <PolarAngleAxis dataKey="subject" />
-                                    <PolarRadiusAxis />
-                                    <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                                </RadarChart>
-                            </ResponsiveContainer>
+                            <PieChart width={730} height={250}>
+
+                                <Pie data={dataCircle} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label />
+                            </PieChart>
                         </div>
-                        <div></div>
                     </div>
                 </div>
             </div>

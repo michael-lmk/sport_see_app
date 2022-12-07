@@ -1,7 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap');
+
 .dashboard {
+    margin: 2% 5%;
     width: 100%;
 }
 
 .content-graph {
-    width: 90%;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    background: #FBFBFB;
+}
+
+.group-bottom-graph {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+
+    color: #20253A;
+}
+
+.name {
+    font-family: 'Roboto';
+    font-size: 48px;
+}
+
+.color-red {
+    color: red;
+
+}
+
+.content-text {
+    width: 100%;
+    text-align: left;
+}
+
+.title-graph2 {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 24px;
+    opacity: 0.5;
+    fill: #FFFFFF;
+
+}
+
+.recharts-legend-item-text {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    color: #74798C!important;
+}
+.graph-bottom {
+    margin: 25px;
+    border-radius: 5px;
+}
+.line-chart {
+    padding: 15px;
+}
+.radar-chart {
+    background: #282D30;
+    padding: 15px;
+}
+
+.radar-chart tspan {
+    fill: white;
 }
