@@ -1,0 +1,33 @@
+.container-item-right {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    margin: 15px 25px;
+    background-color: #FBFBFB;
+    height: 124px;
+    border-radius: 5px;
+}
+
+.container-item-right img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin: 0 15px 0 15px;
+}
+
+.container-item-right p {
+    margin: 0px;
+    text-align: left;
+}
+
+.container-item-right .qty {
+    font-family: 'Roboto';
+    font-weight: 700;
+    color: #282D30;
+}
+
+.container-item-right .type {
+    font-family: 'Roboto';
+    font-weight: 500;
+    color: #74798C;
+}

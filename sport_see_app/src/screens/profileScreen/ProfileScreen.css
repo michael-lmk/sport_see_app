@@ -9,7 +9,8 @@
     margin-top: 25px;
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 100%;
+    height: 300px;
     background: #FBFBFB;
 }
 
@@ -45,13 +46,17 @@
 }
 
 .title-graph2 {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
     font-family: 'Roboto';
     font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 24px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
     opacity: 0.5;
-    fill: #FFFFFF;
+    color: #FFFFFF;
+
 
 }
 
@@ -64,17 +69,38 @@
     color: #74798C!important;
 }
 .graph-bottom {
-    margin: 25px;
+    padding: 15px;
     border-radius: 5px;
+    min-width: 200px;
+    min-height: 200px;
 }
 .line-chart {
-    padding: 15px;
+ 
 }
 .radar-chart {
     background: #282D30;
-    padding: 15px;
+  
 }
 
 .radar-chart tspan {
     fill: white;
+}
+
+.container-graph {
+    display: flex;
+    height: auto;
+}
+
+.container-graph .right {
+    flex: 1;
+  
+}
+
+.container-graph .left {
+    flex: 3;
+
+}
+
+.content {
+    height: auto;
 }
