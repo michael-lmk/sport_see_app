@@ -1,7 +1,7 @@
 import Aside from "../../components/aside/Aside";
 import Header from "../../components/header/Header";
 import "./ProfileScreen";
-import { BarChart, Pie, PieChart, ResponsiveContainer, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, RadarChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, Customized } from 'recharts';
+import { BarChart, Pie, PieChart, Label, ResponsiveContainer, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LineChart, Line, RadarChart, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, Customized } from 'recharts';
 import "./ProfileScreen.css";
 import data from "../../data/datagraph1.json"
 import dataLine from "../../data/datagraph2.json"
@@ -12,9 +12,12 @@ import iconRight1 from "../../assets/calories-icon.png"
 import iconRight2 from "../../assets/protein-icon.png"
 import iconRight3 from "../../assets/carbs-icon.png"
 import iconRight4 from "../../assets/fat-icon.png"
-
+import CustomLabel from "../../components/customLabel/CustomLabel";
+import { useRef } from "react"
 
 const ProfileScreen = ({ name }) => {
+
+    const toolRef = useRef();
 
     const getMinValueUv = (data) => {
         let minus = data.reduce(function (prev, curr) {
@@ -22,6 +25,8 @@ const ProfileScreen = ({ name }) => {
         });
         return minus.uv - 1;
     }
+
+
 
     return (
         <>
@@ -44,10 +49,34 @@ const ProfileScreen = ({ name }) => {
                                         <Bar radius={[20, 20, 0, 0]} barSize={7} name="Poids (kg)" dataKey="pv" stackId="a" fill="#282D30" />
                                         <Bar radius={[20, 20, 0, 0]} barSize={7} name="Calories brûlées (kCal)" dataKey="uv" fill="#E60000" />
 
-                                        <XAxis tickMargin={10} tickLine={false} dataKey="name" />
+                                        <XAxis tickMargin={15} tickLine={false} dataKey="name" />
                                         <YAxis axisLine={false} tickLine={false} type="number" interval="preserveStartEnd" domain={[dataMin => (Math.round(getMinValueUv(data))), dataMax => (Math.round(dataMax + 1))]} orientation="right" />
 
-                                        <Tooltip />
+                                        <Tooltip cursor={{ fill: '#C4C4C480', zIndex: -20 }} content={({ active, payload, label }) => {
+                                            if (active && payload && payload.length) {
+
+                                                return (
+                                                    <div className="custom-tooltip">
+                                                        <p className="label">
+                                                            {payload[0].value}
+                                                            {payload[0].name.substring(
+                                                                payload[0].name.indexOf("(") + 1,
+                                                                payload[0].name.lastIndexOf(")")
+                                                            )}
+                                                        </p>
+                                                        <p className="label">
+                                                            {payload[1].value}
+                                                            {payload[1].name.substring(
+                                                                payload[1].name.indexOf("(") + 1,
+                                                                payload[1].name.lastIndexOf(")")
+                                                            )}
+                                                        </p>
+                                                    </div>
+                                                );
+                                            }
+
+                                            return null;
+                                        }} itemStyle={{ color: "white" }} contentStyle={{ backgroundColor: "red", color: "white" }} />
                                         <Legend iconSize={"8px"} iconType="circle" verticalAlign="top" align="right" height={36} />
                                         <text className="title" x="60" y="11" color="#20253A" dominantBaseline="hanging" fontWeight="500">Activité quotidienne</text>
                                     </BarChart>
@@ -67,8 +96,10 @@ const ProfileScreen = ({ name }) => {
 
                                             <LineChart title="Durée moyenne des sessions" data={dataLine}>
 
-                                                <Tooltip />
-                                                <Line dot={false} type="natural" dataKey="pv" stroke="#8884d8" strokeWidth={1} />
+                                                <Tooltip content={({coordinate}) => {
+                                                    console.log(coordinate);
+                                                }} />
+                                                <Line dot={false} type="natural" dataKey="pv" stroke="white" strokeWidth={1} />
                                                 <XAxis tick={{ stroke: 'white' }} axisLine={false} tickLine={false} label={{ fill: 'white' }} dataKey="day" />
 
                                             </LineChart>
@@ -81,28 +112,58 @@ const ProfileScreen = ({ name }) => {
                                     <ResponsiveContainer width="100%" height="100%">
                                         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataRadar}>
                                             <PolarGrid />
-                                            <PolarAngleAxis dataKey="subject" color="white" />
+                                            <PolarAngleAxis dataKey="subject" color="white" fontSize={12} />
                                             <Radar name="Mike" dataKey="A" fill=" rgba(255, 1, 1, 0.7)" />
                                         </RadarChart>
                                     </ResponsiveContainer>
                                 </div>
-                                <div className="graph-bottom">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <PieChart>
+                                <div className="graph-bottom bg-circle">
+                                    <div className="circle-chart">
 
-                                            <Pie data={dataCircle} startAngle={0} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" >
-                                                <Cell key={`cell-1`} fill={"red"} />
-                                            </Pie>
-                                        </PieChart>
-                                    </ResponsiveContainer>
+                                        <ResponsiveContainer width="100%" height="100%">
+
+                                            <PieChart width={230} height={230}>
+                                                <text className="graph4-value" fill="#282D30" x={120} y={90} textAnchor="middle" dominantBaseline="middle">
+                                                    {dataCircle[0].value}%
+                                                </text>
+                                                <text className="graph4-text" fill="#74798C" x={118} y={110} textAnchor="middle" dominantBaseline="middle">
+                                                    de votre
+                                                </text>
+                                                <text className="graph4-text" fill="#74798C" x={118} y={130} textAnchor="middle" dominantBaseline="middle">
+                                                    objectif
+                                                </text>
+                                                <Pie
+
+                                                    cornerRadius={10}
+                                                    data={dataCircle}
+                                                    cx="50%"
+                                                    cy="50%"
+                                                    dataKey="value"
+                                                    innerRadius={65}
+                                                    outerRadius={80}
+
+                                                >
+
+                                                    {dataCircle.map((entry, index) => {
+                                                        if (index === 1) {
+                                                            return <Cell key={`cell-${index}`} fill="#f3f6f9" />;
+                                                        }
+                                                        return <Cell key={`cell-${index}`} fill="red" />;
+                                                    })}
+
+                                                </Pie>
+                                            </PieChart>
+
+                                        </ResponsiveContainer>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className="right">
-                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight1}/>
-                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight2}/>
-                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight3}/>
-                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight4}/>
+                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight1} />
+                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight2} />
+                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight3} />
+                            <ItemRight type={"Calories"} qty={"1,930kCal"} icon={iconRight4} />
                         </div>
 
                     </div>
@@ -113,3 +174,16 @@ const ProfileScreen = ({ name }) => {
 }
 
 export default ProfileScreen;
+
+const CustomTooltip = ({ active, payload, label }) => {
+    console.log(active);
+    if (active && payload && payload.length) {
+        return (
+            <div className="custom-tooltip">
+                <p className="label">{`${label} : ${payload[0].value}`}</p>
+           
+                <p className="desc">Anything you want can be displayed here.</p>
+            </div>
+        );
+    }
+}
