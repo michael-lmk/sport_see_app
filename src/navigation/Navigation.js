@@ -4,8 +4,8 @@ import {
     Route,
     Routes,
 } from "react-router-dom";
-import HomeScreen from "../screens/homeScreen/HomeScreen";
-import ProfileScreen from "../screens/profileScreen/ProfileScreen";
+import HomeScreen from "../screens/HomeScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const Navigation = () => {
 

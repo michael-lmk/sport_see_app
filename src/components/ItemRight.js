@@ -1,5 +1,5 @@
 import react from 'react';
-import "./ItemRight.css";
+import "../assets/css/ItemRight.css";
 
 
 const ItemRight = ({ icon, qty, type }) => {
