@@ -1,30 +1,30 @@
 import React from "react";
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line } from "recharts";
-export default function MyLineChart({
-  dataLine
-}) {
-  const CustomCursor = (coordX) => {
+
+export default function MyLineChart({ dataLine }) {
+  const CustomCursor = (day) => {
     let widthL = 0;
-    switch (coordX) {
-      case 5:
+    // console.log(coordX);
+    switch (day) {
+      case "L":
         widthL = 92;
         break;
-      case 41.666666666666664:
+      case "M":
         widthL = 78;
         break;
-      case 78.33333333333333:
+      case "M":
         widthL = 64;
         break;
-      case 115:
+      case "J":
         widthL = 50;
         break;
-      case 151.66666666666666:
+      case "V":
         widthL = 36;
         break;
-      case 188.33333333333331:
+      case "S":
         widthL = 22;
         break;
-      case 225:
+      case "D":
         widthL = 8;
         break;
 
@@ -37,11 +37,17 @@ export default function MyLineChart({
     r.style.setProperty("--width-r", `${widthL}%`);
   };
 
+  /**
+   * Event on mouse enter modify opacity property css to 0.1
+   */
   const onMouseEnterLineChart = () => {
     var r = document.querySelector(":root");
     r.style.setProperty("--opacity-b", 0.1);
   };
 
+  /**
+   * Event on mouse leave modify opacity property css to 0
+   */
   const onMouseLeaveLineChart = () => {
     var r = document.querySelector(":root");
     r.style.setProperty("--opacity-b", 0);
@@ -56,8 +62,8 @@ export default function MyLineChart({
           <span>sessions</span>
         </p>
       </div>
-      <div style={{ widthL: "100%", height: "80%" }}>
-        <ResponsiveContainer widthL="100%" height="100%">
+      <div style={{ width: "100%", height: "80%" }}>
+        <ResponsiveContainer width="100%" height="100%">
           <LineChart
             title="Durée moyenne des sessions"
             data={dataLine}
@@ -66,12 +72,13 @@ export default function MyLineChart({
           >
             <Tooltip
               cursor={false}
-              content={({ payload, coordinate }) => {
-                CustomCursor(coordinate.x);
+              content={(data) => {
+                console.log(data);
+                CustomCursor(data.label);
 
                 return (
                   <div>
-                    <p className="line-label">{payload[0]?.value}min</p>
+                    <p className="line-label">{data.payload[0]?.value}min</p>
                   </div>
                 );
               }}

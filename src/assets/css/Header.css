@@ -6,30 +6,31 @@ header {
     background-color: black;
     display: flex;
     align-items: center;
-    height: 91px;
+    height: 75px;
 }
 
 .header {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    font-size: 24px;
-    margin: 0;
+    justify-content: space-between;
+    font-size: 18px;
+    margin: 0 15px;
 }
 
 .header-logo {
-    width: 178px;
+    width: 148px;
     object-fit: contain;
 }
-
-ul {
+.header {
     color: black;
     list-style: none;
     flex: 1;
 }
-li {
+
+.header div {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     
 }
 

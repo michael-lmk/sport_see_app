@@ -1,8 +1,5 @@
 import Aside from "../components/Aside";
 import Header from "../components/Header";
-import "./ProfileScreen";
-
-import "../";
 import dataBar from "../data/datagraph1.json";
 import dataLine from "../data/datagraph2.json";
 import dataRadar from "../data/datagraph3.json";
@@ -12,13 +9,11 @@ import iconRight1 from "../assets/calories-icon.png";
 import iconRight2 from "../assets/protein-icon.png";
 import iconRight3 from "../assets/carbs-icon.png";
 import iconRight4 from "../assets/fat-icon.png";
-
-import { useRef } from "react";
 import MyBarChart from "../components/MyBarChart";
 import MyLineChart from "../components/MyLineChart";
 import MyRadarChart from "../components/MyRadarChart";
-import "../assets/css/ProfileScreen.css";
 import MyCircleChart from "../components/MyCircleChart";
+import "../assets/css/ProfileScreen.css";
 
 const ProfileScreen = ({ name }) => {
   return (
@@ -35,15 +30,19 @@ const ProfileScreen = ({ name }) => {
           </div>
           <div className="container-graph">
             <div className="left">
-              <div style={{ padding: "14px", background: "#FBFBFB" }}>
+              <div className="bar-chart">
                 <MyBarChart data={dataBar} />
               </div>
               <div className="group-bottom-graph">
-                <MyLineChart dataLine={dataLine} />
-
-                <MyRadarChart dataRadar={dataRadar}/>
-                
-                <MyCircleChart dataCircle={dataCircle}/>
+                <div className="graph-flex">
+                  <MyLineChart dataLine={dataLine} />
+                </div>
+                <div className="graph-flex">
+                  <MyRadarChart dataRadar={dataRadar} />
+                </div>
+                <div className="graph-flex">
+                  <MyCircleChart dataCircle={dataCircle} />
+                </div>
               </div>
             </div>
             <div className="right">
@@ -51,6 +50,7 @@ const ProfileScreen = ({ name }) => {
                 type={"Calories"}
                 qty={"1,930kCal"}
                 icon={iconRight1}
+                className={"first-item"}
               />
               <ItemRight
                 type={"Calories"}
@@ -66,6 +66,7 @@ const ProfileScreen = ({ name }) => {
                 type={"Calories"}
                 qty={"1,930kCal"}
                 icon={iconRight4}
+                className={"last-item"}
               />
             </div>
           </div>

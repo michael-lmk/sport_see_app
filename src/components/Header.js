@@ -7,23 +7,23 @@ const Header = () => {
 
     return (
         <div className='container-header'>
-            <ul className='header'>
-                <li>
-                    <img className='header-logo' src={logo}></img>
-                </li>
-                <li>
+            <div className='header'>
+                <div>
+                    <img className='header-logo' alt='' src={logo}></img>
+                </div>
+                <div>
                     <NavLink  className='link'>Accueil</NavLink>
-                </li>
-                <li>
+                </div>
+                <div>
                     <NavLink className='link'>Profil</NavLink>
-                </li>
-                <li>
+                </div>
+                <div>
                     <NavLink className='link'>Réglage</NavLink>
-                </li>
-                <li>
+                </div>
+                <div>
                     <NavLink className='link'>Communauté</NavLink>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     )
 

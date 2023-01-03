@@ -6,12 +6,12 @@ export default function MyCircleChart({ dataCircle }) {
     <div className="graph-bottom bg-circle">
       <div className="circle-chart">
         <ResponsiveContainer widthL="100%" height="100%">
-          <PieChart widthL={230} height={230}>
+          <PieChart>
             <text
               className="graph4-value"
               fill="#282D30"
-              x={130}
-              y={100}
+              x={"50%"}
+              y={"40%"}
               textAnchor="middle"
               dominantBaseline="middle"
             >
@@ -20,8 +20,8 @@ export default function MyCircleChart({ dataCircle }) {
             <text
               className="graph4-text"
               fill="#74798C"
-              x={124}
-              y={120}
+              x={"49%"}
+              y={"50%"}
               textAnchor="middle"
               dominantBaseline="middle"
             >
@@ -30,20 +30,20 @@ export default function MyCircleChart({ dataCircle }) {
             <text
               className="graph4-text"
               fill="#74798C"
-              x={124}
-              y={140}
+              x={"49%"}
+              y={"60%"}
               textAnchor="middle"
               dominantBaseline="middle"
             >
               objectif
             </text>
             <Pie
-              cornerRadius={10}
+              cornerRadius={80}
               data={dataCircle}
               cx="50%"
               cy="50%"
               dataKey="value"
-              innerRadius={65}
+              innerRadius={70}
               outerRadius={80}
             >
               {dataCircle.map((entry, index) => {

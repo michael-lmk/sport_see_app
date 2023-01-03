@@ -1,10 +1,14 @@
+.right {
+  margin: 0px 25px;
+}
+
 .container-item-right {
     display: flex;
     align-items: center;
     flex: 1;
-    margin: 15px 25px;
+    margin: 15px 0;
     background-color: #FBFBFB;
-    height: 124px;
+    height: 120px;
     border-radius: 5px;
 }
 
@@ -22,12 +26,18 @@
 
 .container-item-right .qty {
     font-family: 'Roboto';
+    font-size: 12px;
     font-weight: 700;
     color: #282D30;
 }
 
 .container-item-right .type {
     font-family: 'Roboto';
+    font-size: 12px;
     font-weight: 500;
     color: #74798C;
+}
+
+.first-item, .last-item {
+  margin: 0;
 }

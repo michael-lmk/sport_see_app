@@ -10,10 +10,11 @@ import {
 export default function myRadarChart({dataRadar}) {
   return (
     <div className="graph-bottom radar-chart">
-      <ResponsiveContainer widthL="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataRadar}>
-          <PolarGrid />
-          <PolarAngleAxis dataKey="subject" color="white" fontSize={12} />
+          <PolarGrid  radialLines={false} />
+
+          <PolarAngleAxis axisLine={false} dataKey="subject" fontSize={10}/>
           <Radar name="Mike" dataKey="A" fill=" rgba(255, 1, 1, 0.7)" />
         </RadarChart>
       </ResponsiveContainer>

@@ -1,17 +1,22 @@
 .container-aside {
-    width: 117px;
-    flex-direction: column;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  
+  flex-direction: column;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .container-aside img {
-    margin: 15px;
+  margin: 15px;
+  width: 45px;
+}
+
+.img-container {
+  width: 100%;
 }

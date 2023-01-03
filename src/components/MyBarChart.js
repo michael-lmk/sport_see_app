@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -12,8 +12,6 @@ import {
 
 export default function MyBarChart({data}) {
 
-    const toolRef = useRef();
-
     const getMinValueUv = (data) => {
       let minus = data.reduce(function (prev, curr) {
         return prev.uv < curr.uv ? prev : curr;
@@ -23,7 +21,7 @@ export default function MyBarChart({data}) {
     
   return (
     <div className="content-graph">
-      <ResponsiveContainer widthL="100%" height="100%">
+      <ResponsiveContainer width="100%" height="100%">
         <BarChart title={"Activité quotidienne"} data={data}>
           <CartesianGrid horizontal={true} vertical={false} stroke="#DFE2E6" />
 
