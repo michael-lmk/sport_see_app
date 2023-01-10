@@ -11,30 +11,33 @@ import {
 } from "recharts";
 import PropTypes from "prop-types";
 
+
 export default function MyBarChart({ data }) {
+
   /**
    * Get the minimun of value in data given
    * @param {*} data date of bar chart
    * @returns minimum of value from data
    */
   const getMinValueUv = (data) => {
-    let minus = data.reduce(function (prev, curr) {
-      return prev.uv < curr.uv ? prev : curr;
-    });
-    return minus.uv - 1;
+    // let minus = data.reduce(function (prev, curr) {
+    //   return prev.uv < curr.uv ? prev : curr;
+    // });
+    // return minus.uv - 1;
+    return 5
   };
 
   return (
     <div className="content-graph">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart title={"Activité quotidienne"} data={data}>
+        <BarChart title={"Activité quotidienne"} data={data.sessions}>
           <CartesianGrid horizontal={true} vertical={false} stroke="#DFE2E6" />
 
           <Bar
             radius={[20, 20, 0, 0]}
             barSize={7}
             name="Poids (kg)"
-            dataKey="pv"
+            dataKey="kilogram"
             stackId="a"
             fill="#282D30"
           />
@@ -42,19 +45,21 @@ export default function MyBarChart({ data }) {
             radius={[20, 20, 0, 0]}
             barSize={7}
             name="Calories brûlées (kCal)"
-            dataKey="uv"
+            dataKey="calories"
             fill="#E60000"
           />
 
-          <XAxis tickMargin={15} tickLine={false} dataKey="name" />
+          <XAxis tickMargin={15} tickLine={false} dataKey={(dataParams) => {
+            return data.sessions.findIndex((e) => dataParams.day === e.day) + 1;
+          }} />
           <YAxis
             axisLine={false}
             tickLine={false}
             type="number"
             interval="preserveStartEnd"
             domain={[
-              (dataMin) => Math.round(getMinValueUv(data)),
-              (dataMax) => Math.round(dataMax + 1),
+              (dataMin) => (Math.round(getMinValueUv(data))),
+              (dataMax) => (Math.round(dataMax) + 1),
             ]}
             orientation="right"
           />
@@ -122,5 +127,5 @@ MyBarChart.propTypes = {
   /**
    * Data bar chart
    */
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
 };

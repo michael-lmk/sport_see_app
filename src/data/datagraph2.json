@@ -1,31 +1,33 @@
-[
- 
+{
+  "userId": 18,
+  "sessions": [
     {
-        "day": "L",
-        "pv": 5
+      "day": 1,
+      "sessionLength": 30
     },
     {
-        "day": "M",
-        "pv": 15
+      "day": 2,
+      "sessionLength": 40
     },
     {
-        "day": "M",
-        "pv": 7
+      "day": 3,
+      "sessionLength": 50
     },
     {
-        "day": "J",
-        "pv": 10
+      "day": 4,
+      "sessionLength": 30
     },
     {
-        "day": "V",
-        "pv": 10
+      "day": 5,
+      "sessionLength": 30
     },
     {
-        "day": "S",
-        "pv": 15
+      "day": 6,
+      "sessionLength": 50
     },
     {
-        "day": "D",
-        "pv": 3
+      "day": 7,
+      "sessionLength": 50
     }
-]
+  ]
+}

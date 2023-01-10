@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import dataBar from "../data/datagraph1.json";
 import dataLine from "../data/datagraph2.json";
 import dataRadar from "../data/datagraph3.json";
-import dataCircle from "../data/datagraph4.json";
+import dataUser from "../data/datagraph4.json";
 import ItemRight from "../components/ItemRight";
 import iconRight1 from "../assets/calories-icon.png";
 import iconRight2 from "../assets/protein-icon.png";
@@ -21,7 +21,7 @@ import PropTypes from "prop-types"
  * @param {*} param0 
  * @returns 
  */
-const ProfileScreen = ({ name }) => {
+const ProfileScreen = () => {
   return (
     <>
       <Header />
@@ -30,7 +30,7 @@ const ProfileScreen = ({ name }) => {
         <div className="dashboard">
           <div className="content-text">
             <h1 className="name">
-              Bonjours <span className="color-red">{name}</span>
+              Bonjours <span className="color-red">{dataUser.data.userInfos.firstName}</span>
             </h1>
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
@@ -47,7 +47,7 @@ const ProfileScreen = ({ name }) => {
                   <MyRadarChart dataRadar={dataRadar} />
                 </div>
                 <div className="graph-flex">
-                  <MyCircleChart dataCircle={dataCircle} />
+                  <MyCircleChart dataCircle={dataUser} />
                 </div>
               </div>
             </div>

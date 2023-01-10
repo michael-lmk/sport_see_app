@@ -1,5 +1,5 @@
 .container-aside {
-  
+
   flex-direction: column;
   background-color: black;
   display: flex;
@@ -19,4 +19,15 @@
 
 .img-container {
   width: 100%;
+}
+
+.copyright {
+  color: white;
+  transform: rotate(-90deg);
+  position: absolute;
+  bottom: 0;
+  font-size: 11px;
+  width: max-content;
+  background-color: transparent;
+  border: none;
 }

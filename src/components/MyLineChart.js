@@ -1,45 +1,20 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line } from "recharts";
 import PropTypes from "prop-types"
 
 export default function MyLineChart({ dataLine }) {
+  
+  const ref = useRef(null);
+
   /**
    * Set the width in CSS property of before element for animate hovering of line chart
    * @param {*} day day hovering
    */
   const CustomCursor = (day) => {
-    let widthL = 0;
-    // console.log(coordX);
-    switch (day) {
-      case "L":
-        widthL = 92;
-        break;
-      case "M":
-        widthL = 78;
-        break;
-      case "Me":
-        widthL = 64;
-        break;
-      case "J":
-        widthL = 50;
-        break;
-      case "V":
-        widthL = 36;
-        break;
-      case "S":
-        widthL = 22;
-        break;
-      case "D":
-        widthL = 8;
-        break;
-
-      default:
-        break;
-    }
 
     var r = document.querySelector(":root");
 
-    r.style.setProperty("--width-r", `${widthL}%`);
+    r.style.setProperty("--width-r", `${day+15}px`);
   };
 
   /**
@@ -59,7 +34,7 @@ export default function MyLineChart({ dataLine }) {
   };
 
   return (
-    <div className="graph-bottom line-chart">
+    <div className="graph-bottom line-chart" ref={ref}>
       <div style={{ height: "30px" }}>
         <p className="title-graph2">
           <span>Durée moyenne des</span>
@@ -71,17 +46,17 @@ export default function MyLineChart({ dataLine }) {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             title="Durée moyenne des sessions"
-            data={dataLine}
+            data={dataLine.sessions}
             onMouseLeave={onMouseLeaveLineChart}
             onMouseMove={onMouseEnterLineChart}
           >
             <Tooltip
               cursor={false}
-              content={(data) => {
-                CustomCursor(data.label);
+              content={({ payload, coordinate }) => {
+                CustomCursor(coordinate.x);
                 return (
                   <div>
-                    <p className="line-label">{data.payload[0]?.value}min</p>
+                    <p className="line-label">{payload[0]?.payload?.sessionLength}min</p>
                   </div>
                 );
               }}
@@ -89,7 +64,7 @@ export default function MyLineChart({ dataLine }) {
             <Line
               dot={false}
               type="natural"
-              dataKey="pv"
+              dataKey="sessionLength"
               stroke="white"
               strokewidthL={1}
             />
@@ -97,8 +72,12 @@ export default function MyLineChart({ dataLine }) {
               tick={{ stroke: "white" }}
               axisLine={false}
               tickLine={false}
-              label={{ fill: "white" }}
-              dataKey="day"
+              dataKey={(data) => {
+                const day = ["L", "M", "M", "J", "V", "S", "D"];
+                return (
+                  day[data.day-1]
+                )
+              }}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -111,6 +90,6 @@ MyLineChart.propTypes = {
   /**
    * data line chart
    */
-  dataLine: PropTypes.array.isRequired,
+  dataLine: PropTypes.object.isRequired,
 
 }

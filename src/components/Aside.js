@@ -4,7 +4,7 @@ import icon2 from "../assets/icon-2.png";
 import icon3 from "../assets/icon-3.png";
 import icon4 from "../assets/icon-4.png";
 
-const Aside = () => {
+const Aside = ({onPress}) => {
   return (
     <div className="container-aside">
       <div className="img-container">
@@ -19,6 +19,7 @@ const Aside = () => {
       <div className="img-container">
         <img src={icon4} alt=""></img>
       </div>
+      <button onPress={onPress} className="copyright">Copiryght, SportSee 2020</button>
     </div>
   );
 };

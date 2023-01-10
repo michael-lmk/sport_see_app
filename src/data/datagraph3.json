@@ -1,38 +1,37 @@
-[
+{
+  "userId": 18,
+  "kind": {
+    "1": "cardio",
+    "2": "energy",
+    "3": "endurance",
+    "4": "strength",
+    "5": "speed",
+    "6": "intensity"
+  },
+  "data": [
     {
-        "subject": "Intensité",
-        "A": 120,
-        "B": 110,
-        "fullMark": 150
+      "value": 200,
+      "kind": 1
     },
     {
-        "subject": "Vitesse",
-        "A": 98,
-        "B": 130,
-        "fullMark": 150
+      "value": 240,
+      "kind": 2
     },
     {
-        "subject": "Force",
-        "A": 86,
-        "B": 130,
-        "fullMark": 150
+      "value": 80,
+      "kind": 3
     },
     {
-        "subject": "Endurance",
-        "A": 99,
-        "B": 100,
-        "fullMark": 150
+      "value": 80,
+      "kind": 4
     },
     {
-        "subject": "Energie",
-        "A": 85,
-        "B": 90,
-        "fullMark": 150
+      "value": 220,
+      "kind": 5
     },
     {
-        "subject": "Cardio",
-        "A": 65,
-        "B": 85,
-        "fullMark": 150
+      "value": 110,
+      "kind": 6
     }
-]
+  ]
+}

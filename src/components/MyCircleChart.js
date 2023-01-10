@@ -3,6 +3,7 @@ import { Pie, PieChart, ResponsiveContainer, Cell } from "recharts";
 import PropTypes from "prop-types"
 
 export default function MyCircleChart({ dataCircle }) {
+
   return (
     <div className="graph-bottom bg-circle">
       <div className="circle-chart">
@@ -16,7 +17,7 @@ export default function MyCircleChart({ dataCircle }) {
               textAnchor="middle"
               dominantBaseline="middle"
             >
-              {dataCircle[0].value}%
+              {dataCircle.data.score * 100}%
             </text>
             <text
               className="graph4-text"
@@ -39,20 +40,20 @@ export default function MyCircleChart({ dataCircle }) {
               objectif
             </text>
             <Pie
-              cornerRadius={80}
-              data={dataCircle}
-              cx="50%"
-              cy="50%"
-              dataKey="value"
-              innerRadius={70}
+              data={[{ value: 1- dataCircle.data.score},{ value:  dataCircle.data.score }]}
+              startAngle={180}
+              endAngle={540}
+              innerRadius={65}
               outerRadius={80}
+              
+              fill="#8884d8"
+              dataKey="value"
             >
-              {dataCircle.map((entry, index) => {
-                if (index === 1) {
-                  return <Cell key={`cell-${index}`} fill="#f3f6f9" />;
-                }
-                return <Cell key={`cell-${index}`} fill="red" />;
-              })}
+
+             
+              <Cell key={`cell-0`} fill={"#f4f4f4"} />
+              <Cell cornerRadius={40} key={`cell-0`} fill={"red"} />
+
             </Pie>
           </PieChart>
         </ResponsiveContainer>
