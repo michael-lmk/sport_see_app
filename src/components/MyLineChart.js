@@ -1,5 +1,6 @@
 import React from "react";
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line } from "recharts";
+import PropTypes from "prop-types"
 
 export default function MyLineChart({ dataLine }) {
   /**
@@ -104,4 +105,12 @@ export default function MyLineChart({ dataLine }) {
       </div>
     </div>
   );
+}
+
+MyLineChart.propTypes = {
+  /**
+   * data line chart
+   */
+  dataLine: PropTypes.array.isRequired,
+
 }

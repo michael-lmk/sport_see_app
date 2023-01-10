@@ -1,5 +1,6 @@
 import React from "react";
 import { Pie, PieChart, ResponsiveContainer, Cell } from "recharts";
+import PropTypes from "prop-types"
 
 export default function MyCircleChart({ dataCircle }) {
   return (
@@ -58,4 +59,12 @@ export default function MyCircleChart({ dataCircle }) {
       </div>
     </div>
   );
+}
+
+MyCircleChart.propTypes = {
+  /**
+   * data cicle chart
+   */
+  dataCircle: PropTypes.array.isRequired,
+
 }

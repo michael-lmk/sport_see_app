@@ -9,10 +9,11 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import PropTypes from "prop-types";
 
 export default function MyBarChart({ data }) {
   /**
-   * Get the minimun of value in data given 
+   * Get the minimun of value in data given
    * @param {*} data date of bar chart
    * @returns minimum of value from data
    */
@@ -116,3 +117,10 @@ export default function MyBarChart({ data }) {
     </div>
   );
 }
+
+MyBarChart.propTypes = {
+  /**
+   * Data bar chart
+   */
+  data: PropTypes.array.isRequired,
+};

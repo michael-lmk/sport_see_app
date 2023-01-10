@@ -6,6 +6,7 @@ import {
   PolarGrid,
   Radar,
 } from "recharts";
+import PropTypes from "prop-types"
 
 export default function myRadarChart({dataRadar}) {
   return (
@@ -21,3 +22,12 @@ export default function myRadarChart({dataRadar}) {
     </div>
   );
 }
+
+myRadarChart.propTypes = {
+  /**
+   * Data of radar chart
+   */
+  dataRadar: PropTypes.array.isRequired,
+
+}
+
