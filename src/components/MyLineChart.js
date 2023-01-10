@@ -2,6 +2,10 @@ import React from "react";
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line } from "recharts";
 
 export default function MyLineChart({ dataLine }) {
+  /**
+   * Set the width in CSS property of before element for animate hovering of line chart
+   * @param {*} day day hovering
+   */
   const CustomCursor = (day) => {
     let widthL = 0;
     // console.log(coordX);
@@ -12,7 +16,7 @@ export default function MyLineChart({ dataLine }) {
       case "M":
         widthL = 78;
         break;
-      case "M":
+      case "Me":
         widthL = 64;
         break;
       case "J":
@@ -73,9 +77,7 @@ export default function MyLineChart({ dataLine }) {
             <Tooltip
               cursor={false}
               content={(data) => {
-                console.log(data);
                 CustomCursor(data.label);
-
                 return (
                   <div>
                     <p className="line-label">{data.payload[0]?.value}min</p>

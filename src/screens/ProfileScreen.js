@@ -14,6 +14,7 @@ import MyLineChart from "../components/MyLineChart";
 import MyRadarChart from "../components/MyRadarChart";
 import MyCircleChart from "../components/MyCircleChart";
 import "../assets/css/ProfileScreen.css";
+import PropTypes from "prop-types"
 
 const ProfileScreen = ({ name }) => {
   return (
@@ -24,7 +25,7 @@ const ProfileScreen = ({ name }) => {
         <div className="dashboard">
           <div className="content-text">
             <h1 className="name">
-              Bonjours <span className="color-red">Thomas</span>
+              Bonjours <span className="color-red">{name}</span>
             </h1>
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
@@ -76,17 +77,12 @@ const ProfileScreen = ({ name }) => {
   );
 };
 
+ProfileScreen.propTypes = {
+  /**
+   * User's name
+   */
+  name: PropTypes.string.isRequired,
+
+}
+
 export default ProfileScreen;
-
-const CustomTooltip = ({ active, payload, label }) => {
-  console.log(active);
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`${label} : ${payload[0].value}`}</p>
-
-        <p className="desc">Anything you want can be displayed here.</p>
-      </div>
-    );
-  }
-};

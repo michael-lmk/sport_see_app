@@ -1,4 +1,3 @@
-import react from 'react';
 import "../assets/css/ItemRight.css";
 
 

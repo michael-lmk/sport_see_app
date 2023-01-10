@@ -1,4 +1,3 @@
-import react from "react";
 import "../assets/css/Aside.css";
 import icon1 from "../assets/icon-1.png";
 import icon2 from "../assets/icon-2.png";

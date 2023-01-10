@@ -10,15 +10,19 @@ import {
   Legend,
 } from "recharts";
 
-export default function MyBarChart({data}) {
+export default function MyBarChart({ data }) {
+  /**
+   * Get the minimun of value in data given 
+   * @param {*} data date of bar chart
+   * @returns minimum of value from data
+   */
+  const getMinValueUv = (data) => {
+    let minus = data.reduce(function (prev, curr) {
+      return prev.uv < curr.uv ? prev : curr;
+    });
+    return minus.uv - 1;
+  };
 
-    const getMinValueUv = (data) => {
-      let minus = data.reduce(function (prev, curr) {
-        return prev.uv < curr.uv ? prev : curr;
-      });
-      return minus.uv - 1;
-    };
-    
   return (
     <div className="content-graph">
       <ResponsiveContainer width="100%" height="100%">
