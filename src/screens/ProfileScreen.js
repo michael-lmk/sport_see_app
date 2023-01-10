@@ -16,6 +16,11 @@ import MyCircleChart from "../components/MyCircleChart";
 import "../assets/css/ProfileScreen.css";
 import PropTypes from "prop-types"
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const ProfileScreen = ({ name }) => {
   return (
     <>
@@ -77,6 +82,8 @@ const ProfileScreen = ({ name }) => {
   );
 };
 
+export default ProfileScreen;
+
 ProfileScreen.propTypes = {
   /**
    * User's name
@@ -85,4 +92,8 @@ ProfileScreen.propTypes = {
 
 }
 
-export default ProfileScreen;
+ProfileScreen.defaultProps = {
+  name: "{name}",
+}
+
+

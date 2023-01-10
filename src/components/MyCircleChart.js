@@ -6,7 +6,7 @@ export default function MyCircleChart({ dataCircle }) {
   return (
     <div className="graph-bottom bg-circle">
       <div className="circle-chart">
-        <ResponsiveContainer widthL="100%" height="100%">
+        <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <text
               className="graph4-value"
