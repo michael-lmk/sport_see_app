@@ -4,6 +4,11 @@ import icon2 from "../assets/icon-2.png";
 import icon3 from "../assets/icon-3.png";
 import icon4 from "../assets/icon-4.png";
 
+/**
+ * Navigation on left with icon
+ * @param {Function} onPress this state can been swap between test data and backend data  
+ * 
+ */
 const Aside = ({onPress}) => {
   return (
     <div className="container-aside">

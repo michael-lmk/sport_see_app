@@ -11,7 +11,11 @@ import {
 } from "recharts";
 import PropTypes from "prop-types";
 
-
+/**
+ * this is a chart of daily activity
+ * @param {Object} data data of chart
+ * @returns 
+ */
 export default function MyBarChart({ data }) {
 
   /**

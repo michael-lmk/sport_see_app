@@ -2,6 +2,10 @@ import React, { useRef } from "react";
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line } from "recharts";
 import PropTypes from "prop-types"
 
+/**
+ *  This component showing average sessions sport
+ * @param {Object} dataLine data acout average sessions sport
+ */
 export default function MyLineChart({ dataLine }) {
   
   const ref = useRef(null);

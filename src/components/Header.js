@@ -2,6 +2,9 @@ import { NavLink } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import "../assets/css/Header.css";
 
+/**
+ * Navigation on top 
+ */
 const Header = () => {
 
     return (

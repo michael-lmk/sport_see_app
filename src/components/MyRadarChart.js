@@ -8,6 +8,11 @@ import {
 } from "recharts";
 import PropTypes from "prop-types"
 
+/**
+ * This component showing performance in different domain
+ * @param {Object} dataRadar data of performance  
+ * @returns 
+ */
 export default function myRadarChart({ dataRadar }) {
   return (
     <div className="graph-bottom radar-chart">

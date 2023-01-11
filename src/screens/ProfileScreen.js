@@ -28,24 +28,36 @@ const ProfileScreen = () => {
   const [lineChartData, setLineChartData] = useState(null);
   const [radarChartData, setRadarChartData] = useState(null);
 
+  /**
+   * Get data from back about user
+   */
   const getInfoUserData = async () => {
     let model = new Model();
     let data = await model.fetchToApi("/user/18/");
     return data
   }
 
+  /**
+   * Get data from back about average sessions
+   */
   const getLineChartData = async () => {
     let model = new Model();
     let data = await model.fetchToApi("/user/18/average-sessions");
     return data
   }
 
+  /**
+   * Get data from back about daily activity
+   */
   const getBarChartData = async () => {
     let model = new Model();
     let data = await model.fetchToApi("/user/18/activity");
     return data
   }
 
+  /**
+   * Get data from back about performance
+   */
   const getRadarChartData = async () => {
     let model = new Model();
     let data = await model.fetchToApi("/user/18/performance");
@@ -55,19 +67,19 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (isBackendData) {
       getInfoUserData().then((result) => {
-        console.log(result);
+
         setUserInfos(result);
       })
       getLineChartData().then((result) => {
-        console.log(result);
+
         setLineChartData(result);
       })
       getBarChartData().then((result) => {
-        console.log(result);
+
         setBarChartData(result);
       })
       getRadarChartData().then((result) => {
-        console.log(result);
+
         setRadarChartData(result);
       })
     } else {
@@ -147,10 +159,6 @@ ProfileScreen.propTypes = {
    */
   name: PropTypes.string.isRequired,
 
-}
-
-ProfileScreen.defaultProps = {
-  name: "{name}",
 }
 
 
