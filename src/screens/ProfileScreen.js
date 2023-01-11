@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import Aside from "../components/Aside";
 import Header from "../components/Header";
 import dataBar from "../data/datagraph1.json";
@@ -15,39 +16,95 @@ import MyRadarChart from "../components/MyRadarChart";
 import MyCircleChart from "../components/MyCircleChart";
 import "../assets/css/ProfileScreen.css";
 import PropTypes from "prop-types"
+import Model from "../model/Model";
 
 /**
- * 
- * @param {*} param0 
- * @returns 
+ * This component show profile screen
  */
 const ProfileScreen = () => {
+  const [isBackendData, setIsBackendData] = useState(true);
+  const [userInfos, setUserInfos] = useState(null);
+  const [barChartData, setBarChartData] = useState(null);
+  const [lineChartData, setLineChartData] = useState(null);
+  const [radarChartData, setRadarChartData] = useState(null);
+
+  const getInfoUserData = async () => {
+    let model = new Model();
+    let data = await model.fetchToApi("/user/18/");
+    return data
+  }
+
+  const getLineChartData = async () => {
+    let model = new Model();
+    let data = await model.fetchToApi("/user/18/average-sessions");
+    return data
+  }
+
+  const getBarChartData = async () => {
+    let model = new Model();
+    let data = await model.fetchToApi("/user/18/activity");
+    return data
+  }
+
+  const getRadarChartData = async () => {
+    let model = new Model();
+    let data = await model.fetchToApi("/user/18/performance");
+    return data
+  }
+
+  useEffect(() => {
+    if (isBackendData) {
+      getInfoUserData().then((result) => {
+        console.log(result);
+        setUserInfos(result);
+      })
+      getLineChartData().then((result) => {
+        console.log(result);
+        setLineChartData(result);
+      })
+      getBarChartData().then((result) => {
+        console.log(result);
+        setBarChartData(result);
+      })
+      getRadarChartData().then((result) => {
+        console.log(result);
+        setRadarChartData(result);
+      })
+    } else {
+      setUserInfos(null);
+      setLineChartData(null);
+      setBarChartData(null);
+      setRadarChartData(null);
+    }
+  }, [isBackendData])
+
+
   return (
     <>
       <Header />
       <div className="content">
-        <Aside />
+        <Aside onPress={() => setIsBackendData(!isBackendData)} />
         <div className="dashboard">
           <div className="content-text">
             <h1 className="name">
-              Bonjours <span className="color-red">{dataUser.data.userInfos.firstName}</span>
+              Bonjours <span className="color-red">{userInfos ? userInfos.data.userInfos.firstName : dataUser.data.userInfos.firstName}</span>
             </h1>
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
           <div className="container-graph">
             <div className="left">
               <div className="bar-chart">
-                <MyBarChart data={dataBar} />
+                <MyBarChart data={barChartData ? barChartData.data : dataBar} />
               </div>
               <div className="group-bottom-graph">
                 <div className="graph-flex">
-                  <MyLineChart dataLine={dataLine} />
+                  <MyLineChart dataLine={lineChartData ? lineChartData.data : dataLine} />
                 </div>
                 <div className="graph-flex">
-                  <MyRadarChart dataRadar={dataRadar} />
+                  <MyRadarChart dataRadar={radarChartData ? radarChartData.data : dataRadar} />
                 </div>
                 <div className="graph-flex">
-                  <MyCircleChart dataCircle={dataUser} />
+                  <MyCircleChart dataCircle={userInfos ? userInfos : dataUser} />
                 </div>
               </div>
             </div>

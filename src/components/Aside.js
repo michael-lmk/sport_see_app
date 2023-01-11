@@ -19,7 +19,7 @@ const Aside = ({onPress}) => {
       <div className="img-container">
         <img src={icon4} alt=""></img>
       </div>
-      <button onPress={onPress} className="copyright">Copiryght, SportSee 2020</button>
+      <button onClick={onPress} className="copyright">Copiryght, SportSee 2020</button>
     </div>
   );
 };

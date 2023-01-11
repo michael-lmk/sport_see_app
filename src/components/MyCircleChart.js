@@ -66,6 +66,6 @@ MyCircleChart.propTypes = {
   /**
    * data cicle chart
    */
-  dataCircle: PropTypes.array.isRequired,
+  dataCircle: PropTypes.object.isRequired,
 
 }
