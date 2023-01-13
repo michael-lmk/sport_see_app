@@ -64,6 +64,9 @@ const ProfileScreen = () => {
     return data
   }
 
+  /**
+   * This useEffect launch function for get data from backend and set data  in my useState hook
+   */
   useEffect(() => {
     if (isBackendData) {
       getInfoUserData().then((result) => {
