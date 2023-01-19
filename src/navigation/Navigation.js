@@ -14,7 +14,7 @@ const Navigation = () => {
 
             <Routes>
                 <Route path="/" element={<HomeScreen />} />
-                <Route path="/profil/:id" element={<ProfileScreen />} />
+                <Route path="/profil/:userId" element={<ProfileScreen />} />
             </Routes>
 
         </Router>

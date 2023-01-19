@@ -15,13 +15,16 @@ import MyLineChart from "../components/MyLineChart";
 import MyRadarChart from "../components/MyRadarChart";
 import MyCircleChart from "../components/MyCircleChart";
 import "../assets/css/ProfileScreen.css";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import Model from "../model/Model";
+import { useParams } from "react-router-dom";
 
 /**
  * This component show profile screen
  */
 const ProfileScreen = () => {
+  const {userId} = useParams();
+
   const [isBackendData, setIsBackendData] = useState(true);
   const [userInfos, setUserInfos] = useState(null);
   const [barChartData, setBarChartData] = useState(null);
@@ -33,36 +36,36 @@ const ProfileScreen = () => {
    */
   const getInfoUserData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi("/user/18/");
-    return data
-  }
+    let data = await model.fetchToApi(`/user/${userId}/`);
+    return data;
+  };
 
   /**
    * Get data from back about average sessions
    */
   const getLineChartData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi("/user/18/average-sessions");
+    let data = await model.fetchToApi(`/user/${userId}/average-sessions`);
     return data
-  }
+  };
 
   /**
    * Get data from back about daily activity
    */
   const getBarChartData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi("/user/18/activity");
-    return data
-  }
+    let data = await model.fetchToApi(`/user/${userId}/activity`);
+    return data;
+  };
 
   /**
    * Get data from back about performance
    */
   const getRadarChartData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi("/user/18/performance");
-    return data
-  }
+    let data = await model.fetchToApi(`/user/${userId}/performance`);
+    return data;
+  };
 
   /**
    * This useEffect launch function for get data from backend and set data  in my useState hook
@@ -70,29 +73,25 @@ const ProfileScreen = () => {
   useEffect(() => {
     if (isBackendData) {
       getInfoUserData().then((result) => {
-
         setUserInfos(result);
-      })
+        console.log(result);
+      });
       getLineChartData().then((result) => {
-
         setLineChartData(result);
-      })
+      });
       getBarChartData().then((result) => {
-
         setBarChartData(result);
-      })
+      });
       getRadarChartData().then((result) => {
-
         setRadarChartData(result);
-      })
+      });
     } else {
       setUserInfos(null);
       setLineChartData(null);
       setBarChartData(null);
       setRadarChartData(null);
     }
-  }, [isBackendData])
-
+  }, [isBackendData]);
 
   return (
     <>
@@ -102,7 +101,12 @@ const ProfileScreen = () => {
         <div className="dashboard">
           <div className="content-text">
             <h1 className="name">
-              Bonjours <span className="color-red">{userInfos ? userInfos.data.userInfos.firstName : dataUser.data.userInfos.firstName}</span>
+              Bonjours{" "}
+              <span className="color-red">
+                {userInfos
+                  ? userInfos.data.userInfos.firstName
+                  : dataUser.data.userInfos.firstName}
+              </span>
             </h1>
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
@@ -113,36 +117,42 @@ const ProfileScreen = () => {
               </div>
               <div className="group-bottom-graph">
                 <div className="graph-flex">
-                  <MyLineChart dataLine={lineChartData ? lineChartData.data : dataLine} />
+                  <MyLineChart
+                    dataLine={lineChartData ? lineChartData.data : dataLine}
+                  />
                 </div>
                 <div className="graph-flex">
-                  <MyRadarChart dataRadar={radarChartData ? radarChartData.data : dataRadar} />
+                  <MyRadarChart
+                    dataRadar={radarChartData ? radarChartData.data : dataRadar}
+                  />
                 </div>
                 <div className="graph-flex">
-                  <MyCircleChart dataCircle={userInfos ? userInfos : dataUser} />
+                  <MyCircleChart
+                    dataCircle={userInfos ? userInfos : dataUser}
+                  />
                 </div>
               </div>
             </div>
             <div className="right">
               <ItemRight
                 type={"Calories"}
-                qty={"1,930kCal"}
+                qty={userInfos ?`${userInfos.data.keyData.calorieCount}kCal` : ""}
                 icon={iconRight1}
                 className={"first-item"}
               />
               <ItemRight
-                type={"Calories"}
-                qty={"1,930kCal"}
+                type={"Proteines"}
+                qty={userInfos ?`${userInfos.data.keyData.proteinCount}g` : ""}
                 icon={iconRight2}
               />
               <ItemRight
-                type={"Calories"}
-                qty={"1,930kCal"}
+                type={"Glucides"}
+                qty={userInfos ?`${userInfos.data.keyData.carbohydrateCount}g` : ""}
                 icon={iconRight3}
               />
               <ItemRight
-                type={"Calories"}
-                qty={"1,930kCal"}
+                type={"Lipides"}
+                qty={userInfos ?`${userInfos.data.keyData.lipidCount}g` : ""}
                 icon={iconRight4}
                 className={"last-item"}
               />
@@ -155,13 +165,4 @@ const ProfileScreen = () => {
 };
 
 export default ProfileScreen;
-
-ProfileScreen.propTypes = {
-  /**
-   * User's name
-   */
-  name: PropTypes.string.isRequired,
-
-}
-
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -14,22 +14,39 @@ import PropTypes from "prop-types";
 /**
  * this is a chart of daily activity
  * @param {Object} data data of chart
- * @returns 
+ * @returns
  */
 export default function MyBarChart({ data }) {
-
   /**
    * Get the minimun of value in data given
    * @param {*} data date of bar chart
    * @returns minimum of value from data
    */
   const getMinValueUv = (data) => {
-    // let minus = data.reduce(function (prev, curr) {
-    //   return prev.uv < curr.uv ? prev : curr;
-    // });
-    // return minus.uv - 1;
-    return 5
+    let minus = data.reduce(function (prev, curr) {
+      return prev.kilogram < curr.kilogram ? prev : curr;
+    });
+
+    return minus.kilogram - 1;
   };
+
+  const getMinValue = (data) => {
+    let min = data.reduce((prev, curr) => {
+      return prev.kilogram < curr.kilogram ? prev : curr;
+    });
+
+    return min.kilogram;
+  };
+
+  const getMaxValue = (data) => {
+    let max = data.reduce((prev, curr) => {
+      return prev.calories > curr.calories ? prev : curr;
+    });
+
+    return max.calories;
+  };
+
+  let minKilo = 0;
 
   return (
     <div className="content-graph">
@@ -42,7 +59,6 @@ export default function MyBarChart({ data }) {
             barSize={7}
             name="Poids (kg)"
             dataKey="kilogram"
-            stackId="a"
             fill="#282D30"
           />
           <Bar
@@ -53,19 +69,24 @@ export default function MyBarChart({ data }) {
             fill="#E60000"
           />
 
-          <XAxis tickMargin={15} tickLine={false} dataKey={(dataParams) => {
-            return data.sessions.findIndex((e) => dataParams.day === e.day) + 1;
-          }} />
+          <XAxis
+            tickMargin={15}
+            tickLine={false}
+            dataKey={(dataParams) => {
+              return (
+                data.sessions.findIndex((e) => dataParams.day === e.day) + 1
+              );
+            }}
+          />
           <YAxis
             axisLine={false}
             tickLine={false}
             type="number"
-            interval="preserveStartEnd"
-            domain={[
-              (dataMin) => (Math.round(getMinValueUv(data))),
-              (dataMax) => (Math.round(dataMax) + 1),
-            ]}
+            interval="0"
             orientation="right"
+            tickFormatter={(e, i) => {
+              return getMinValue(data.sessions)+i;
+            }}
           />
 
           <Tooltip

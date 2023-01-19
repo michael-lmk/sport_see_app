@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
 import { ResponsiveContainer, XAxis, Tooltip, LineChart, Line } from "recharts";
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 
 /**
  *  This component showing average sessions sport
  * @param {Object} dataLine data acout average sessions sport
  */
 export default function MyLineChart({ dataLine }) {
-  
   const ref = useRef(null);
 
   /**
@@ -15,10 +14,8 @@ export default function MyLineChart({ dataLine }) {
    * @param {*} day day hovering
    */
   const CustomCursor = (day) => {
-
     var r = document.querySelector(":root");
-
-    r.style.setProperty("--width-r", `${day+15}px`);
+    r.style.setProperty("--width-r", `${ref.current.offsetWidth - day - 15}px`);
   };
 
   /**
@@ -60,7 +57,9 @@ export default function MyLineChart({ dataLine }) {
                 CustomCursor(coordinate.x);
                 return (
                   <div>
-                    <p className="line-label">{payload[0]?.payload?.sessionLength}min</p>
+                    <p className="line-label">
+                      {payload[0]?.payload?.sessionLength}min
+                    </p>
                   </div>
                 );
               }}
@@ -78,9 +77,7 @@ export default function MyLineChart({ dataLine }) {
               tickLine={false}
               dataKey={(data) => {
                 const day = ["L", "M", "M", "J", "V", "S", "D"];
-                return (
-                  day[data.day-1]
-                )
+                return day[data.day - 1];
               }}
             />
           </LineChart>
@@ -95,5 +92,4 @@ MyLineChart.propTypes = {
    * data line chart
    */
   dataLine: PropTypes.object.isRequired,
-
-}
+};
