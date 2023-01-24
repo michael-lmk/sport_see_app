@@ -17,84 +17,43 @@ import PropTypes from "prop-types";
  * @returns
  */
 export default function MyBarChart({ data }) {
-  /**
-   * Get the minimun of value in data given
-   * @param {*} data date of bar chart
-   * @returns minimum of value from data
-   */
-  const getMinValueUv = (data) => {
-    let minus = data.reduce(function (prev, curr) {
-      return prev.kilogram < curr.kilogram ? prev : curr;
-    });
-
-    return minus.kilogram - 1;
-  };
-
-  const getMinValue = (data) => {
-    let min = data.reduce((prev, curr) => {
-      return prev.kilogram < curr.kilogram ? prev : curr;
-    });
-
-    return min.kilogram;
-  };
-
-  const getMaxValue = (data) => {
-    let max = data.reduce((prev, curr) => {
-      return prev.calories > curr.calories ? prev : curr;
-    });
-
-    return max.calories;
-  };
-
-  let minKilo = 0;
 
   return (
     <div className="content-graph">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart title={"Activité quotidienne"} data={data.sessions}>
-          <CartesianGrid horizontal={true} vertical={false} stroke="#DFE2E6" />
-
-          <Bar
-            radius={[20, 20, 0, 0]}
-            barSize={7}
-            name="Poids (kg)"
-            dataKey="kilogram"
-            fill="#282D30"
-          />
-          <Bar
-            radius={[20, 20, 0, 0]}
-            barSize={7}
-            name="Calories brûlées (kCal)"
-            dataKey="calories"
-            fill="#E60000"
-          />
-
-          <XAxis
-            tickMargin={15}
+        <BarChart
+          data={data.sessions}
+          barGap={5}
+          barCategoryGap={25}
+          strokeDasharray="1 4"
+        >
+          <CartesianGrid vertical={false} />
+          <YAxis
+            yAxisId="right"
+            type="number"
+            tickCount={3}
+            tickSize={"20"}
             tickLine={false}
-            dataKey={(dataParams) => {
-              return (
-                data.sessions.findIndex((e) => dataParams.day === e.day) + 1
-              );
-            }}
+            dataKey="kilogram"
+            axisLine={false}
+            orientation="right"
+            tick={{ fontSize: 12 }}
+            stroke="#74798C"
+            domain={["dataMin-1","dataMin+1","dataMax+1"]}
           />
           <YAxis
-            axisLine={false}
-            tickLine={false}
-            type="number"
-            interval="0"
-            orientation="right"
-            tickFormatter={(e, i) => {
-              return getMinValue(data.sessions)+i;
-            }}
+            hide={true}
+            yAxisId="left"
+            orientation="left"
           />
-
+          <XAxis
+            tickLine={false}
+            axisLine={false}
+            tick={{ fontSize: 12 }}
+            stroke="#74798C"
+          />
           <Tooltip
-            cursor={{
-              backgroundColor: "#C4C4C480",
-              opacity: 0.3,
-              zIndex: -20,
-            }}
+            wrapperStyle={{ top: -50, left: 10 }}
             content={({ active, payload, label }) => {
               if (active && payload && payload.length) {
                 return (
@@ -119,29 +78,35 @@ export default function MyBarChart({ data }) {
 
               return null;
             }}
-            itemStyle={{ color: "white" }}
-            contentStyle={{
-              backgroundColor: "red",
-              color: "white",
-            }}
           />
           <Legend
-            iconSize={"8px"}
+            wrapperStyle={{ paddingTop: "15px" }}
+            // formatter={CustomLegendText}
+            height={50}
+            iconSize={8}
             iconType="circle"
-            verticalAlign="top"
             align="right"
-            height={36}
+            verticalAlign="top"
           />
-          <text
-            className="title"
-            x="60"
-            y="11"
-            color="#20253A"
-            dominantBaseline="hanging"
-            fontWeight="500"
-          >
-            Activité quotidienne
-          </text>
+          <Bar
+          yAxisId="right"
+            name="Poids (kg)"
+            radius={[10, 10, 0, 0]}
+            stroke-linejoin={10}
+            barSize={10}
+            maxBarSize={10}
+            dataKey="kilogram"
+            fill="#282D30"
+          />
+          <Bar
+          yAxisId="left"
+            name="Calories brûlées (kCal)"
+            radius={[10, 10, 0, 0]}
+            barSize={10}
+            maxBarSize={10}
+            dataKey="calories"
+            fill="#E60000"
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

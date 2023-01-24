@@ -30,14 +30,15 @@ const ProfileScreen = () => {
   const [barChartData, setBarChartData] = useState(null);
   const [lineChartData, setLineChartData] = useState(null);
   const [radarChartData, setRadarChartData] = useState(null);
+  const [erreurApi, setErreurApi] = useState(false);
 
   /**
    * Get data from back about user
    */
   const getInfoUserData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi(`/user/${userId}/`);
-    return data;
+    await model.fetchToApi(`/user/${userId}/`);
+    return model.data;
   };
 
   /**
@@ -45,8 +46,8 @@ const ProfileScreen = () => {
    */
   const getLineChartData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi(`/user/${userId}/average-sessions`);
-    return data
+    await model.fetchToApi(`/user/${userId}/average-sessions`);
+    return model.data;
   };
 
   /**
@@ -54,8 +55,8 @@ const ProfileScreen = () => {
    */
   const getBarChartData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi(`/user/${userId}/activity`);
-    return data;
+    await model.fetchToApi(`/user/${userId}/activity`);
+    return model.data;
   };
 
   /**
@@ -63,8 +64,8 @@ const ProfileScreen = () => {
    */
   const getRadarChartData = async () => {
     let model = new Model();
-    let data = await model.fetchToApi(`/user/${userId}/performance`);
-    return data;
+    await model.fetchToApi(`/user/${userId}/performance`);
+    return model.data;
   };
 
   /**
@@ -74,17 +75,16 @@ const ProfileScreen = () => {
     if (isBackendData) {
       getInfoUserData().then((result) => {
         setUserInfos(result);
-        console.log(result);
-      });
+      })
       getLineChartData().then((result) => {
         setLineChartData(result);
-      });
+      })
       getBarChartData().then((result) => {
         setBarChartData(result);
-      });
+      })
       getRadarChartData().then((result) => {
         setRadarChartData(result);
-      });
+      })
     } else {
       setUserInfos(null);
       setLineChartData(null);
@@ -111,6 +111,7 @@ const ProfileScreen = () => {
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
           <div className="container-graph">
+            {erreurApi? <h1>Impossible de récuperer les informations de l'utilisateur</h1> : null}
             <div className="left">
               <div className="bar-chart">
                 <MyBarChart data={barChartData ? barChartData.data : dataBar} />

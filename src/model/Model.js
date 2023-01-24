@@ -9,9 +9,9 @@ class Model {
    * @constructor
    * @param {Object} params
    */
-  constructor(controller,params) {
-    this.controller = controller
-    this.params = params;
+  constructor() {
+    this.data = {};
+    this.error = false;
   }
 
   /**
@@ -30,7 +30,7 @@ class Model {
       console.log("erreur fetch to api : " + error);
     });
 
-    return result;
+    this.data = result;
   }
 
 }
