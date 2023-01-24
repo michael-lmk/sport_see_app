@@ -8,7 +8,7 @@ import PropTypes from "prop-types"
  * @returns 
  */
 export default function MyCircleChart({ dataCircle }) {
-
+  console.log(dataCircle.score);
   return (
     <div className="graph-bottom bg-circle">
       <div className="circle-chart">
@@ -22,7 +22,7 @@ export default function MyCircleChart({ dataCircle }) {
               textAnchor="middle"
               dominantBaseline="middle"
             >
-              {dataCircle.data.score * 100}%
+              {dataCircle.score * 100}%
             </text>
             <text
               className="graph4-text"
@@ -45,7 +45,7 @@ export default function MyCircleChart({ dataCircle }) {
               objectif
             </text>
             <Pie
-              data={[{ value: 1- dataCircle.data.score},{ value:  dataCircle.data.score }]}
+              data={[{ value: 1- dataCircle.score},{ value:  dataCircle.score }]}
               startAngle={180}
               endAngle={540}
               innerRadius={65}

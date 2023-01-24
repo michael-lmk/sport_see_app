@@ -14,6 +14,7 @@ import PropTypes from "prop-types"
  * @returns 
  */
 export default function myRadarChart({ dataRadar }) {
+
   return (
     <div className="graph-bottom radar-chart">
       <ResponsiveContainer width="100%" height="100%">

@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
  * @returns
  */
 export default function MyBarChart({ data }) {
-
+  
   return (
     <div className="content-graph">
       <ResponsiveContainer width="100%" height="100%">

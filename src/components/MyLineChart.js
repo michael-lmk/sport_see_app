@@ -39,7 +39,6 @@ export default function MyLineChart({ dataLine }) {
       <div style={{ height: "30px" }}>
         <p className="title-graph2">
           <span>Durée moyenne des</span>
-          {"\n"}
           <span>sessions</span>
         </p>
       </div>

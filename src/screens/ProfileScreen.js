@@ -17,13 +17,17 @@ import MyCircleChart from "../components/MyCircleChart";
 import "../assets/css/ProfileScreen.css";
 import PropTypes from "prop-types";
 import Model from "../model/Model";
+import BarChartModel from "../model/BarChartModel";
 import { useParams } from "react-router-dom";
+import LineChartModel from "../model/LineChartModel";
+import RadarChartModel from "../model/RadarChartModel";
+import UserModel from "../model/UserModel";
 
 /**
  * This component show profile screen
  */
 const ProfileScreen = () => {
-  const {userId} = useParams();
+  const { userId } = useParams();
 
   const [isBackendData, setIsBackendData] = useState(true);
   const [userInfos, setUserInfos] = useState(null);
@@ -36,61 +40,67 @@ const ProfileScreen = () => {
    * Get data from back about user
    */
   const getInfoUserData = async () => {
-    let model = new Model();
-    await model.fetchToApi(`/user/${userId}/`);
-    return model.data;
+    let model = new UserModel();
+    await model.getDataForUser(userId);
+    console.log("------", model);
+    return model;
   };
+
 
   /**
    * Get data from back about average sessions
    */
   const getLineChartData = async () => {
-    let model = new Model();
-    await model.fetchToApi(`/user/${userId}/average-sessions`);
-    return model.data;
+    let model = new LineChartModel();
+    await model.getDataForLineChart(userId);
+
+    return model;
   };
 
   /**
    * Get data from back about daily activity
    */
   const getBarChartData = async () => {
-    let model = new Model();
-    await model.fetchToApi(`/user/${userId}/activity`);
-    return model.data;
+    let model = new BarChartModel();
+    await model.getDataForBarChart(userId);
+
+    return model;
   };
 
   /**
    * Get data from back about performance
    */
   const getRadarChartData = async () => {
-    let model = new Model();
-    await model.fetchToApi(`/user/${userId}/performance`);
-    return model.data;
+
+    let model = new RadarChartModel();
+    await model.getDataForRadarChart(userId);
+    return model;
   };
 
   /**
    * This useEffect launch function for get data from backend and set data  in my useState hook
    */
   useEffect(() => {
-    if (isBackendData) {
-      getInfoUserData().then((result) => {
-        setUserInfos(result);
-      })
-      getLineChartData().then((result) => {
-        setLineChartData(result);
-      })
-      getBarChartData().then((result) => {
-        setBarChartData(result);
-      })
-      getRadarChartData().then((result) => {
-        setRadarChartData(result);
-      })
+    if (isBackendData && userId) {
+    getBarChartData().then((result) => {
+      setBarChartData(result);
+    })
+    getLineChartData().then((result) => {
+      setLineChartData(result);
+    })
+    getRadarChartData().then((result) => {
+      setRadarChartData(result);
+    })
+    getInfoUserData().then((result) => {
+      setUserInfos(result);
+    })
     } else {
       setUserInfos(null);
       setLineChartData(null);
       setBarChartData(null);
       setRadarChartData(null);
     }
+
   }, [isBackendData]);
 
   return (
@@ -103,57 +113,82 @@ const ProfileScreen = () => {
             <h1 className="name">
               Bonjours{" "}
               <span className="color-red">
-                {userInfos
-                  ? userInfos.data.userInfos.firstName
-                  : dataUser.data.userInfos.firstName}
+                {/* {userInfos
+                  ? userInfos.userInfos.firstName
+                  : userInfos.userInfos.firstName} */}
               </span>
             </h1>
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
           <div className="container-graph">
-            {erreurApi? <h1>Impossible de récuperer les informations de l'utilisateur</h1> : null}
+            {erreurApi ? <h1>Impossible de récuperer les informations de l'utilisateur</h1> : null}
             <div className="left">
               <div className="bar-chart">
-                <MyBarChart data={barChartData ? barChartData.data : dataBar} />
+                {barChartData?.error === false ?
+                  <MyBarChart data={barChartData} />
+                  :
+                  <div>
+                    <p>Problèmes lors de la récupération des données</p>
+                  </div>
+                }
+
               </div>
               <div className="group-bottom-graph">
                 <div className="graph-flex">
-                  <MyLineChart
-                    dataLine={lineChartData ? lineChartData.data : dataLine}
-                  />
+                  {lineChartData?.error === false ?
+                    <MyLineChart
+                      dataLine={lineChartData}
+                    />
+                    :
+                    <div>
+                      <p>Problèmes lors de la récupération des données</p>
+                    </div>
+                  }
                 </div>
                 <div className="graph-flex">
-                  <MyRadarChart
-                    dataRadar={radarChartData ? radarChartData.data : dataRadar}
-                  />
+                  {lineChartData?.error === false ?
+                    <MyRadarChart
+                      dataRadar={radarChartData}
+                    />
+                    :
+                    <div>
+                      <p>Problèmes lors de la récupération des données</p>
+                    </div>
+                  }
                 </div>
                 <div className="graph-flex">
-                  <MyCircleChart
-                    dataCircle={userInfos ? userInfos : dataUser}
-                  />
+                  {lineChartData?.error === false ?
+                    <MyCircleChart
+                      dataCircle={userInfos}
+                    />
+                    :
+                    <div>
+                      <p>Problèmes lors de la récupération des données</p>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
             <div className="right">
               <ItemRight
                 type={"Calories"}
-                qty={userInfos ?`${userInfos.data.keyData.calorieCount}kCal` : ""}
+                qty={userInfos ? `${userInfos.keyData.calorieCount}kCal` : ""}
                 icon={iconRight1}
                 className={"first-item"}
               />
               <ItemRight
                 type={"Proteines"}
-                qty={userInfos ?`${userInfos.data.keyData.proteinCount}g` : ""}
+                qty={userInfos ? `${userInfos.keyData.proteinCount}g` : ""}
                 icon={iconRight2}
               />
               <ItemRight
                 type={"Glucides"}
-                qty={userInfos ?`${userInfos.data.keyData.carbohydrateCount}g` : ""}
+                qty={userInfos ? `${userInfos.keyData.carbohydrateCount}g` : ""}
                 icon={iconRight3}
               />
               <ItemRight
                 type={"Lipides"}
-                qty={userInfos ?`${userInfos.data.keyData.lipidCount}g` : ""}
+                qty={userInfos ? `${userInfos.keyData.lipidCount}g` : ""}
                 icon={iconRight4}
                 className={"last-item"}
               />
