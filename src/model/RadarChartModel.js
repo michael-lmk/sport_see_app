@@ -10,6 +10,7 @@ class RadarChartModel extends Model {
         this.kind = {};
         this.data = [];
         this.user_id = null;
+        this.error = true;
     }
 
     /**
@@ -22,6 +23,7 @@ class RadarChartModel extends Model {
                 this.kind = data.kind;
                 this.data = data.data;
                 this.user_id = data.userId;
+                this.error = false;
             })
             .catch((error) => {
                 this.error = true;

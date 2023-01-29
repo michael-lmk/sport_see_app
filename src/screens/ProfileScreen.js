@@ -15,8 +15,6 @@ import MyLineChart from "../components/MyLineChart";
 import MyRadarChart from "../components/MyRadarChart";
 import MyCircleChart from "../components/MyCircleChart";
 import "../assets/css/ProfileScreen.css";
-import PropTypes from "prop-types";
-import Model from "../model/Model";
 import BarChartModel from "../model/BarChartModel";
 import { useParams } from "react-router-dom";
 import LineChartModel from "../model/LineChartModel";
@@ -34,7 +32,6 @@ const ProfileScreen = () => {
   const [barChartData, setBarChartData] = useState(null);
   const [lineChartData, setLineChartData] = useState(null);
   const [radarChartData, setRadarChartData] = useState(null);
-  const [erreurApi, setErreurApi] = useState(false);
 
   /**
    * Get data from back about user
@@ -82,23 +79,28 @@ const ProfileScreen = () => {
    */
   useEffect(() => {
     if (isBackendData && userId) {
-    getBarChartData().then((result) => {
-      setBarChartData(result);
-    })
-    getLineChartData().then((result) => {
-      setLineChartData(result);
-    })
-    getRadarChartData().then((result) => {
-      setRadarChartData(result);
-    })
-    getInfoUserData().then((result) => {
-      setUserInfos(result);
-    })
+      getBarChartData().then((result) => {
+        setBarChartData(result);
+      })
+      getLineChartData().then((result) => {
+        setLineChartData(result);
+      })
+      getRadarChartData().then((result) => {
+        setRadarChartData(result);
+      })
+      getInfoUserData().then((result) => {
+        setUserInfos(result);
+      })
     } else {
-      setUserInfos(null);
-      setLineChartData(null);
-      setBarChartData(null);
-      setRadarChartData(null);
+      dataBar.error = false;
+      dataLine.error = false;
+      dataUser.data.error = false;
+      dataRadar.error = false;
+
+      setUserInfos(dataUser.data);
+      setLineChartData(dataLine);
+      setBarChartData(dataBar);
+      setRadarChartData(dataRadar);
     }
 
   }, [isBackendData]);
@@ -113,15 +115,14 @@ const ProfileScreen = () => {
             <h1 className="name">
               Bonjours{" "}
               <span className="color-red">
-                {/* {userInfos
+                {userInfos
                   ? userInfos.userInfos.firstName
-                  : userInfos.userInfos.firstName} */}
+                  : "Erreur de recupération du profil :( "}
               </span>
             </h1>
             <h3>Félicitation ! Vous avez explosé vos objectifs hier 👏</h3>
           </div>
           <div className="container-graph">
-            {erreurApi ? <h1>Impossible de récuperer les informations de l'utilisateur</h1> : null}
             <div className="left">
               <div className="bar-chart">
                 {barChartData?.error === false ?

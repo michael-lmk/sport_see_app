@@ -18,7 +18,7 @@ export default function myRadarChart({ dataRadar }) {
   return (
     <div className="graph-bottom radar-chart">
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataRadar.data}>
+        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={dataRadar?.data}>
           <PolarGrid radialLines={false} />
 
           <PolarAngleAxis

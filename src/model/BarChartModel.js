@@ -13,7 +13,7 @@ class BarChartModel extends Model {
         super();
         this.user_id = null;
         this.sessions = {};
-        this.error = false;
+        this.error = true;
     }
 
     /**
@@ -25,6 +25,7 @@ class BarChartModel extends Model {
             .then((res) => {
                 this.sessions = res.data.sessions;
                 this.user_id = res.data.userId;
+                this.error = false;
             })
             .catch((error) => {
                 this.error = true;

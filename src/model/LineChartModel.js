@@ -9,7 +9,7 @@ class LineChartModel extends Model {
         super();
         this.sessions = {};
         this.user_id = null;
-        this.error = false;
+        this.error = true;
     }
 
     /**
@@ -21,6 +21,7 @@ class LineChartModel extends Model {
             .then((res) => {
                 this.sessions = res.data.sessions;
                 this.user_id = res.data.userId;
+                this.error = false;
             })
             .catch((error) => {
                 this.error = true;

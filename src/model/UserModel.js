@@ -13,10 +13,10 @@ class UserModel extends Model {
             carbohydrateCount: 0,
             lipidCount: 0
         };
-        this.user_id = null;
+        this.id = null;
         this.score = 0;
         this.userInfos = {};
-        this.error = false;
+        this.error = true;
     }
 
     /**
@@ -25,11 +25,19 @@ class UserModel extends Model {
      */
     async getDataForUser(userId) {
         await this.fetchToApi(`/user/${userId}/`)
-            .then(({data}) => {
-                this.keyData = data.keyData;
-                this.user_id = data.userId;
-                this.score = data.score;
+            .then(({ data }) => {
                 this.userInfos = data.userInfos;
+                this.keyData = data.keyData;
+                this.id = data.id;
+                
+                if (data?.todayScore) {
+                    this.score = data.todayScore;
+                } else {
+                    this.score = data.score;
+                }
+                
+                this.error = false;
+
             })
             .catch((error) => {
                 this.error = true;
